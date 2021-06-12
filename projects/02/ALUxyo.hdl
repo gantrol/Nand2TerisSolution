@@ -1,0 +1,8 @@
+CHIP ALUxyo {
+    IN x, y, zx, nx,zy,ny,f,no,pcarry,pzr;
+    OUT out,carry,zr;
+    PARTS:
+    ALUxy(x=x,zx=zx,nx=nx,out=x0);
+    ALUxy(x=y,zx=zy,nx=ny,out=y0);
+    ALUo(x=x0,y=y0,f=f,no=no,pcarry=pcarry,pzr=pzr,out=out,zr=zr,carry=carry);
+}

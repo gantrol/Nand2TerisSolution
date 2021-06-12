@@ -1,0 +1,66 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/02/ALU.hdl
+
+/**
+ * The ALU (Arithmetic Logic Unit).
+ * Computes one of the following functions:
+ * x+y, x-y, y-x, 0, 1, -1, x, y, -x, -y, !x, !y,
+ * x+1, y+1, x-1, y-1, x&y, x|y on two 16-bit inputs, 
+ * according to 6 input bits denoted zx,nx,zy,ny,f,no.
+ * In addition, the ALU computes two 1-bit outputs:
+ * if the ALU output == 0, zr is set to 1; otherwise zr is set to 0;
+ * if the ALU output < 0, ng is set to 1; otherwise ng is set to 0.
+ */
+
+// Implementation: the ALU logic manipulates the x and y inputs
+// and operates on the resulting values, as follows:
+// if (zx == 1) set x = 0        // 16-bit constant
+// if (nx == 1) set x = !x       // bitwise not
+// if (zy == 1) set y = 0        // 16-bit constant
+// if (ny == 1) set y = !y       // bitwise not
+// if (f == 1)  set out = x + y  // integer 2's complement addition
+// if (f == 0)  set out = x & y  // bitwise and
+// if (no == 1) set out = !out   // bitwise not
+// if (out == 0) set zr = 1
+// if (out < 0) set ng = 1
+
+
+
+
+CHIP ALU {
+    IN  
+        x[16], y[16],  // 16-bit inputs        
+        zx, // zero the x input?
+        nx, // negate the x input?
+        zy, // zero the y input?
+        ny, // negate the y input?
+        f,  // compute out = x + y (if 1) or x & y (if 0)
+        no; // negate the out output?
+
+    OUT 
+        out[16], // 16-bit output
+        zr, // 1 if (out == 0), 0 otherwise
+        ng; // 1 if (out < 0),  0 otherwise
+
+    PARTS:
+    // Put you code here:
+    ALUxyo(x=x[0],y=y[0],zx=zx,nx=nx,zy=zy,ny=ny,f=f,no=no,pcarry=false,pzr=true,out=out[0],carry=carry0,zr=zr0);
+    ALUxyo(x=x[1],y=y[1],zx=zx,nx=nx,zy=zy,ny=ny,f=f,no=no,pcarry=carry0,pzr=zr0,out=out[1],carry=carry1,zr=zr1);
+    ALUxyo(x=x[2],y=y[2],zx=zx,nx=nx,zy=zy,ny=ny,f=f,no=no,pcarry=carry1,pzr=zr1,out=out[2],carry=carry2,zr=zr2);
+    ALUxyo(x=x[3],y=y[3],zx=zx,nx=nx,zy=zy,ny=ny,f=f,no=no,pcarry=carry2,pzr=zr2,out=out[3],carry=carry3,zr=zr3);
+    ALUxyo(x=x[4],y=y[4],zx=zx,nx=nx,zy=zy,ny=ny,f=f,no=no,pcarry=carry3,pzr=zr3,out=out[4],carry=carry4,zr=zr4);
+    ALUxyo(x=x[5],y=y[5],zx=zx,nx=nx,zy=zy,ny=ny,f=f,no=no,pcarry=carry4,pzr=zr4,out=out[5],carry=carry5,zr=zr5);
+    ALUxyo(x=x[6],y=y[6],zx=zx,nx=nx,zy=zy,ny=ny,f=f,no=no,pcarry=carry5,pzr=zr5,out=out[6],carry=carry6,zr=zr6);
+    ALUxyo(x=x[7],y=y[7],zx=zx,nx=nx,zy=zy,ny=ny,f=f,no=no,pcarry=carry6,pzr=zr6,out=out[7],carry=carry7,zr=zr7);
+    ALUxyo(x=x[8],y=y[8],zx=zx,nx=nx,zy=zy,ny=ny,f=f,no=no,pcarry=carry7,pzr=zr7,out=out[8],carry=carry8,zr=zr8);
+    ALUxyo(x=x[9],y=y[9],zx=zx,nx=nx,zy=zy,ny=ny,f=f,no=no,pcarry=carry8,pzr=zr8,out=out[9],carry=carry9,zr=zr9);
+    ALUxyo(x=x[10],y=y[10],zx=zx,nx=nx,zy=zy,ny=ny,f=f,no=no,pcarry=carry9,pzr=zr9,out=out[10],carry=carry10,zr=zr10);
+    ALUxyo(x=x[11],y=y[11],zx=zx,nx=nx,zy=zy,ny=ny,f=f,no=no,pcarry=carry10,pzr=zr10,out=out[11],carry=carry11,zr=zr11);
+    ALUxyo(x=x[12],y=y[12],zx=zx,nx=nx,zy=zy,ny=ny,f=f,no=no,pcarry=carry11,pzr=zr11,out=out[12],carry=carry12,zr=zr12);
+    ALUxyo(x=x[13],y=y[13],zx=zx,nx=nx,zy=zy,ny=ny,f=f,no=no,pcarry=carry12,pzr=zr12,out=out[13],carry=carry13,zr=zr13);
+    ALUxyo(x=x[14],y=y[14],zx=zx,nx=nx,zy=zy,ny=ny,f=f,no=no,pcarry=carry13,pzr=zr13,out=out[14],carry=carry14,zr=zr14);
+    ALUxyo(x=x[15],y=y[15],zx=zx,nx=nx,zy=zy,ny=ny,f=f,no=no,pcarry=carry14,pzr=zr14,out=out[15],out=ng,carry=carry15,zr=zr);
+}
+
