@@ -1,0 +1,12 @@
+CHIP Zero16 {
+    IN x[16];
+    OUT out, ng;
+    PARTS:
+        // 只要有一个字母是1，out为0，否则为1
+        // Or全部，只要一个是1，就得出1，去否既得所求
+        Or8Way(in=x[0..7], out=o07);
+        Or8Way(in=x[8..15], out=o815);
+        Or(a=o07, b=o815, out=o015);
+        Not(in=o015, out=out);
+        And(a=x[15], b=x[15], out=ng);
+}

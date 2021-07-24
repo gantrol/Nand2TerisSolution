@@ -1,0 +1,11 @@
+CHIP ALUIn {
+    IN
+        x[16],
+        zx, nx;
+    OUT
+        out[16];
+    PARTS:
+        Mux16(a=x, b[0..15]=false, sel=zx, out=out0);
+        Not16(in=out0, out=outN);
+        Mux16(a=out0, b=outN, sel=nx, out=out);
+}
