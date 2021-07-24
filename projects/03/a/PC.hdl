@@ -16,9 +16,8 @@ CHIP PC {
     OUT out[16];
 
     PARTS:
-    // Put your code here:
-    Add16(a=preOut, b[0]=inc, b[1..15]=false, out=iTmp);
-    Mux16(a=iTmp, b=in, sel=load, out=inTmp);
-    Mux16(a=inTmp, b=false, sel=reset, out=reTmp);
-    Register(in=reTmp, load=true, out=out, out=preOut);
+        Add16(a=preOut, b[0]=inc, b[1..15]=false, out=iTmp);
+        Mux16(a=iTmp, b=in, sel=load, out=inTmp);
+        Mux16(a=inTmp, b=false, sel=reset, out=reTmp);
+        Register(in=reTmp, load=true, out=out, out=preOut);
 }
