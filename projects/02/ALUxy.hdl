@@ -1,9 +1,0 @@
-CHIP ALUxy {
-    IN x, zx, nx;
-    OUT out;
-
-    PARTS:
-    And(a=x,b=nzx,out=xzx);
-    Xor(a=xzx,b=nx,out=out);
-    Not(in=zx,out=nzx);
-}

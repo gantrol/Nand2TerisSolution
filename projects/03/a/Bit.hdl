@@ -14,9 +14,10 @@ CHIP Bit {
     OUT out;
 
     PARTS:
-    // Put your code here:
-    // DFF(in=in, out=pre,out=out);
-    Mux(a=tmp, b=in, sel=load, out=next);
-    DFF(in=next, out=out, out=tmp);
-    
+        /**
+         * 使用local变量，很奇怪的语法，比如初始值没有，默认就是0了
+         * 
+         */
+        Mux(a=tmp, b=in, sel=load, out=next);
+        DFF(in=next, out=out, out=tmp);
 }
