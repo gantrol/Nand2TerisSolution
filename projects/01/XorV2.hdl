@@ -8,13 +8,13 @@
  * out = not (a == b)
  */
 
-CHIP Xor {
+CHIP XorV2 {
     IN a, b;
     OUT out;
 
     PARTS:
-    // Put your code here:
-    Nand(a=a, b=b,out=nao);
-    Or(a=a, b=b, out=aorb);
-    And(a=nao, b=aorb, out=out);
+    /* 在Nand门为基础的情况下，最优实现 */
+        Nand(a=a, b=b,out=nao);
+        Or(a=a, b=b, out=aorb);
+        And(a=nao, b=aorb, out=out);
 }
