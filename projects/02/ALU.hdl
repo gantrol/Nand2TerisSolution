@@ -26,9 +26,6 @@
 // if (out == 0) set zr = 1
 // if (out < 0) set ng = 1
 
-
-
-
 CHIP ALU {
     IN  
         x[16], y[16],  // 16-bit inputs        
@@ -56,11 +53,9 @@ CHIP ALU {
         Mux16(a=and, b=add, sel=f, out=fout);
         // no: negate the out output?
         Not16(in=fout, out=nout);
-        Mux16(a=fout, b=nout, sel=no, out=out, out=tmp);
+        Mux16(a=fout, b=nout, sel=no, out=out, out=tmp, out[15]=ng); // ng: 1 if (out[15] == 1), 0 otherwise
         // zr: 1 if (out == 0), 0 otherwise
-        Zero16(x=tmp, out=zr, ng=ng);  // tmp instead of x, 排查了20min...
-        // ng: 1 if (out < 0), 0 otherwise, 只需要首字母为1
-        // And(a=tmp[15], b=tmp[15], out=ng);  // 不知道为何错了……并入zero chip
+        Zero16(x=tmp, out=zr);  // tmp instead of x, debug for 20min...
 }
 
 
